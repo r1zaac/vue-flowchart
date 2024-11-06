@@ -1,17 +1,9 @@
-<template>
-  <div class="node comment-node">
-    <div class="icon">💬</div>
-    <div class="title">{{ data.label }}</div>
-    <div class="description">{{ data.comment }}</div>
-  </div>
-</template>
-
 <script setup>
+import BaseNode from "./BaseNode.vue";
+
 defineProps(["data"]);
 </script>
 
-<style scoped>
-.comment-node {
-  /* Style for Comment node */
-}
-</style>
+<template>
+  <BaseNode icon="💬" title="Add Comment" :description="data.comment" />
+</template>
