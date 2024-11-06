@@ -53,45 +53,70 @@ function addNode() {
       <Background pattern-color="#aaa" :gap="16" />
       <MiniMap />
 
-      <Panel position="top-right">
-        <button
-          class="panel-button"
-          @click="
-            showCreateNodeModal = true;
-            console.log(showCreateNodeModal);
-          "
-        >
+      <div class="panel-button-container">
+        <button class="button is-primary" @click="showCreateNodeModal = true">
           Create New Node
         </button>
-      </Panel>
+      </div>
     </VueFlow>
 
-    <!-- Modal for Creating New Node -->
-    <div v-show="showCreateNodeModal" class="modal">
-      <div class="modal-content">
-        <h2>Create New Node</h2>
-        <form @submit.prevent="addNode">
-          <label>
-            Title:
-            <input v-model="newNodeData.title" type="text" required />
-          </label>
-          <label>
-            Description:
-            <input v-model="newNodeData.description" type="text" />
-          </label>
-          <label>
-            Type of Node:
-            <select v-model="newNodeData.type" required>
-              <option value="sendMessage">Send Message</option>
-              <option value="addComment">Add Comment</option>
-              <option value="businessHours">Business Hours</option>
-            </select>
-          </label>
-          <button type="submit">Add Node</button>
-          <button type="button" @click="showCreateNodeModal = false">
+    <!-- Modal for Creating New Node with Bulma styling -->
+    <div class="modal" :class="{ 'is-active': showCreateNodeModal }">
+      <div class="modal-background" @click="showCreateNodeModal = false"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Create New Node</p>
+          <button
+            class="delete"
+            @click="showCreateNodeModal = false"
+            aria-label="close"
+          ></button>
+        </header>
+        <section class="modal-card-body">
+          <form @submit.prevent="addNode">
+            <div class="field">
+              <label class="label">Title</label>
+              <div class="control">
+                <input
+                  class="input"
+                  v-model="newNodeData.title"
+                  type="text"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Description</label>
+              <div class="control">
+                <input
+                  class="input"
+                  v-model="newNodeData.description"
+                  type="text"
+                />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Type of Node</label>
+              <div class="control">
+                <div class="select">
+                  <select v-model="newNodeData.type" required>
+                    <option value="sendMessage">Send Message</option>
+                    <option value="addComment">Add Comment</option>
+                    <option value="businessHours">Business Hours</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </form>
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success" @click="addNode">Add Node</button>
+          <button class="button" @click="showCreateNodeModal = false">
             Cancel
           </button>
-        </form>
+        </footer>
       </div>
     </div>
   </div>
@@ -102,56 +127,18 @@ function addNode() {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  position: relative; /* Ensure elements inside can position themselves */
+  position: relative;
 }
 
-.panel-button {
+.panel-button-container {
   position: fixed;
   top: 10px;
   right: 10px;
-  z-index: 100; /* Ensure it appears above other elements */
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  z-index: 100;
 }
 
-.panel-button:hover {
-  background-color: #0056b3;
-}
-
-.modal {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-}
-
-.modal-content {
-  display: flex;
-  flex-direction: column;
-}
-
-.modal-content h2 {
-  margin-top: 0;
-}
-
-.modal-content form {
-  display: flex;
-  flex-direction: column;
-}
-
-.modal-content label {
-  margin: 5px 0;
+.modal-card {
+  width: 90%;
+  max-width: 500px;
 }
 </style>
