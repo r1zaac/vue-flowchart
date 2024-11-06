@@ -1,5 +1,5 @@
 <script setup>
-import BaseNode from "./BaseNode.vue";
+import BaseNode from "../BaseNode.vue";
 
 defineProps(["data"]);
 </script>

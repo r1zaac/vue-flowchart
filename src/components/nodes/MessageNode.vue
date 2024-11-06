@@ -5,7 +5,7 @@
 <script setup>
 import { computed } from "vue";
 import { defineProps } from "vue";
-import BaseNode from "./BaseNode.vue";
+import BaseNode from "../BaseNode.vue";
 
 const props = defineProps({
   data: {
